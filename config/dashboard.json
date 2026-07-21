@@ -1,0 +1,11 @@
+{
+  "platform_name": "Agent Hub",
+  "dashboard_title": "Functional Testing Dashboard",
+  "jira_base_url": "https://your-domain.atlassian.net/browse/",
+  "repository_url": "https://github.com/YOUR-ORG/YOUR-REPO",
+  "snapshot_times": [
+    "12:00",
+    "18:00"
+  ],
+  "timezone": "Asia/Hong_Kong"
+}

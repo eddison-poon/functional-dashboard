@@ -1,0 +1,42 @@
+{
+  "mcp": {
+    "dimension": "capability_group",
+    "value": "MCP Marketplace"
+  },
+  "skills": {
+    "dimension": "capability_group",
+    "value": "Skills Marketplace"
+  },
+  "knowledge-base": {
+    "dimension": "capability_group",
+    "value": "Knowledge Base"
+  },
+  "team": {
+    "dimension": "capability_group",
+    "value": "Team Management"
+  },
+  "supervisor": {
+    "dimension": "team_type",
+    "value": "Supervisor"
+  },
+  "workflow": {
+    "dimension": "team_type",
+    "value": "Workflow"
+  },
+  "sequential": {
+    "dimension": "team_type",
+    "value": "Sequential"
+  },
+  "round-robin": {
+    "dimension": "team_type",
+    "value": "Round Robin"
+  },
+  "manual": {
+    "dimension": "test_type",
+    "value": "MANUAL"
+  },
+  "automation": {
+    "dimension": "test_type",
+    "value": "AUTOMATION"
+  }
+}

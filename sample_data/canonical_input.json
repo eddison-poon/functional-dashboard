@@ -1,0 +1,461 @@
+{
+  "metadata": {
+    "release": "R2026.08",
+    "sprint": "12",
+    "build": "2.3.18",
+    "generated_at": "2026-07-22T18:00:00+08:00"
+  },
+  "capability_groups": [
+    {
+      "id": "mcp-marketplace",
+      "name": "MCP Marketplace",
+      "default_expanded": true,
+      "capabilities": [
+        {
+          "id": "jira-mcp",
+          "name": "Jira MCP",
+          "description": "Jira issue creation, search, update, and workflow capabilities.",
+          "environments": {
+            "DEV": "PASSED",
+            "SIT": "PASSED",
+            "UAT": "PASSED",
+            "PPD": "NOT_EXECUTED",
+            "PROD": "NOT_EXECUTED"
+          },
+          "features": [
+            {
+              "id": "create-jira-ticket",
+              "name": "Create Jira Ticket",
+              "scenarios": [
+                {
+                  "id": "jira-create-mandatory",
+                  "name": "Create ticket with mandatory fields",
+                  "jira_id": "AHP-1042",
+                  "manual_test_id": "MCP-JIRA-M-001",
+                  "automation_test_id": "MCP-JIRA-A-001",
+                  "manual_status": "PASSED",
+                  "automation_status": "PASSED",
+                  "executions": [
+                    {
+                      "execution_id": "EXE-20260722-120001-0001",
+                      "status": "FAILED",
+                      "environment": "SIT",
+                      "build": "2.3.17",
+                      "executed_at": "2026-07-22T12:00:01+08:00"
+                    },
+                    {
+                      "execution_id": "EXE-20260722-175841-0002",
+                      "status": "PASSED",
+                      "environment": "SIT",
+                      "build": "2.3.18",
+                      "executed_at": "2026-07-22T17:58:41+08:00"
+                    }
+                  ]
+                },
+                {
+                  "id": "jira-create-invalid-project",
+                  "name": "Reject ticket creation for invalid project key",
+                  "jira_id": "AHP-1043",
+                  "manual_test_id": "MCP-JIRA-M-002",
+                  "automation_test_id": "MCP-JIRA-A-002",
+                  "manual_status": "PASSED",
+                  "automation_status": "FAILED",
+                  "executions": [
+                    {
+                      "execution_id": "EXE-20260722-174212-0003",
+                      "status": "FAILED",
+                      "environment": "SIT",
+                      "build": "2.3.18",
+                      "executed_at": "2026-07-22T17:42:12+08:00"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "search-jira-ticket",
+              "name": "Search Jira Ticket",
+              "scenarios": [
+                {
+                  "id": "jira-search-key",
+                  "name": "Search issue by Jira key",
+                  "jira_id": "AHP-1051",
+                  "manual_test_id": "MCP-JIRA-M-003",
+                  "automation_test_id": "MCP-JIRA-A-003",
+                  "manual_status": "PASSED",
+                  "automation_status": "PASSED",
+                  "executions": [
+                    {
+                      "execution_id": "EXE-20260722-171155-0004",
+                      "status": "PASSED",
+                      "environment": "SIT",
+                      "build": "2.3.18",
+                      "executed_at": "2026-07-22T17:11:55+08:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "confluence-mcp",
+          "name": "Confluence MCP",
+          "description": "Confluence page viewing and content-management capabilities.",
+          "environments": {
+            "DEV": "PASSED",
+            "SIT": "BLOCKED",
+            "UAT": "NOT_EXECUTED",
+            "PPD": "NOT_EXECUTED",
+            "PROD": "NOT_EXECUTED"
+          },
+          "features": [
+            {
+              "id": "view-confluence-page",
+              "name": "View Confluence Page",
+              "scenarios": [
+                {
+                  "id": "conf-view-page-id",
+                  "name": "View a page by page ID",
+                  "jira_id": "AHP-1110",
+                  "manual_test_id": "MCP-CONF-M-001",
+                  "automation_test_id": "MCP-CONF-A-001",
+                  "manual_status": "PASSED",
+                  "automation_status": "BLOCKED",
+                  "executions": [
+                    {
+                      "execution_id": "EXE-20260722-164800-0005",
+                      "status": "BLOCKED",
+                      "environment": "SIT",
+                      "build": "2.3.18",
+                      "executed_at": "2026-07-22T16:48:00+08:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "github-mcp",
+          "name": "GitHub MCP",
+          "description": "Repository, pull-request, and source-control capabilities.",
+          "environments": {
+            "DEV": "PASSED",
+            "SIT": "FAILED",
+            "UAT": "NOT_EXECUTED",
+            "PPD": "NOT_EXECUTED",
+            "PROD": "NOT_EXECUTED"
+          },
+          "features": [
+            {
+              "id": "create-pull-request",
+              "name": "Create Pull Request",
+              "scenarios": [
+                {
+                  "id": "github-create-pr",
+                  "name": "Create pull request from a valid branch",
+                  "jira_id": "AHP-1200",
+                  "manual_test_id": "MCP-GH-M-001",
+                  "automation_test_id": "MCP-GH-A-001",
+                  "manual_status": "FAILED",
+                  "automation_status": "FAILED",
+                  "executions": [
+                    {
+                      "execution_id": "EXE-20260722-161300-0006",
+                      "status": "FAILED",
+                      "environment": "SIT",
+                      "build": "2.3.18",
+                      "executed_at": "2026-07-22T16:13:00+08:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "skills-marketplace",
+      "name": "Skills Marketplace",
+      "default_expanded": false,
+      "capabilities": [
+        {
+          "id": "html-builder",
+          "name": "HTML Builder",
+          "description": "Generate and validate HTML output.",
+          "environments": {
+            "DEV": "PASSED",
+            "SIT": "PASSED",
+            "UAT": "PASSED",
+            "PPD": "NOT_EXECUTED",
+            "PROD": "NOT_EXECUTED"
+          },
+          "features": [
+            {
+              "id": "generate-html",
+              "name": "Generate HTML",
+              "scenarios": [
+                {
+                  "id": "html-basic-page",
+                  "name": "Generate a valid responsive HTML page",
+                  "jira_id": "AHP-1301",
+                  "manual_test_id": "SKL-HTML-M-001",
+                  "automation_test_id": "SKL-HTML-A-001",
+                  "manual_status": "PASSED",
+                  "automation_status": "PASSED",
+                  "executions": [
+                    {
+                      "execution_id": "EXE-20260722-155500-0007",
+                      "status": "PASSED",
+                      "environment": "SIT",
+                      "build": "2.3.18",
+                      "executed_at": "2026-07-22T15:55:00+08:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "code-reviewer",
+          "name": "Code Reviewer",
+          "description": "Review code and produce structured findings.",
+          "environments": {
+            "DEV": "PASSED",
+            "SIT": "FAILED",
+            "UAT": "NOT_EXECUTED",
+            "PPD": "NOT_EXECUTED",
+            "PROD": "NOT_EXECUTED"
+          },
+          "features": [
+            {
+              "id": "review-java-code",
+              "name": "Review Java Code",
+              "scenarios": [
+                {
+                  "id": "java-large-file",
+                  "name": "Review Java file larger than 500 KB",
+                  "jira_id": "AHP-1320",
+                  "manual_test_id": "SKL-CODE-M-001",
+                  "automation_test_id": "SKL-CODE-A-001",
+                  "manual_status": "PASSED",
+                  "automation_status": "FAILED",
+                  "executions": [
+                    {
+                      "execution_id": "EXE-20260721-180000-0008",
+                      "status": "PASSED",
+                      "environment": "SIT",
+                      "build": "2.3.17",
+                      "executed_at": "2026-07-21T18:00:00+08:00"
+                    },
+                    {
+                      "execution_id": "EXE-20260722-120000-0009",
+                      "status": "FAILED",
+                      "environment": "SIT",
+                      "build": "2.3.18",
+                      "executed_at": "2026-07-22T12:00:00+08:00"
+                    },
+                    {
+                      "execution_id": "EXE-20260722-173000-0010",
+                      "status": "FAILED",
+                      "environment": "SIT",
+                      "build": "2.3.18",
+                      "executed_at": "2026-07-22T17:30:00+08:00"
+                    }
+                  ]
+                },
+                {
+                  "id": "java-multi-module",
+                  "name": "Review a multi-module Java repository",
+                  "jira_id": "AHP-1321",
+                  "manual_test_id": "SKL-CODE-M-002",
+                  "automation_test_id": "SKL-CODE-A-002",
+                  "manual_status": "FAILED",
+                  "automation_status": "NOT_EXECUTED",
+                  "executions": [
+                    {
+                      "execution_id": "EXE-20260722-150000-0011",
+                      "status": "FAILED",
+                      "environment": "SIT",
+                      "build": "2.3.18",
+                      "executed_at": "2026-07-22T15:00:00+08:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ai-summarizer",
+          "name": "AI Summarizer",
+          "description": "Summarize long-form engineering content.",
+          "environments": {
+            "DEV": "PASSED",
+            "SIT": "BLOCKED",
+            "UAT": "NOT_EXECUTED",
+            "PPD": "NOT_EXECUTED",
+            "PROD": "NOT_EXECUTED"
+          },
+          "features": [
+            {
+              "id": "summarize-document",
+              "name": "Summarize Document",
+              "scenarios": [
+                {
+                  "id": "summarize-long-document",
+                  "name": "Summarize a document above 100 pages",
+                  "jira_id": "AHP-1350",
+                  "manual_test_id": "SKL-SUM-M-001",
+                  "automation_test_id": "SKL-SUM-A-001",
+                  "manual_status": "BLOCKED",
+                  "automation_status": "NOT_EXECUTED",
+                  "executions": [
+                    {
+                      "execution_id": "EXE-20260722-140000-0012",
+                      "status": "BLOCKED",
+                      "environment": "SIT",
+                      "build": "2.3.18",
+                      "executed_at": "2026-07-22T14:00:00+08:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "knowledge-base",
+      "name": "Knowledge Base",
+      "default_expanded": false,
+      "capabilities": [
+        {
+          "id": "knowledge-ingestion",
+          "name": "Knowledge Ingestion",
+          "description": "Ingest and index enterprise content.",
+          "environments": {
+            "DEV": "PASSED",
+            "SIT": "PASSED",
+            "UAT": "PASSED",
+            "PPD": "NOT_EXECUTED",
+            "PROD": "NOT_EXECUTED"
+          },
+          "features": [
+            {
+              "id": "ingest-document",
+              "name": "Ingest Document",
+              "scenarios": [
+                {
+                  "id": "ingest-pdf",
+                  "name": "Ingest and index a PDF document",
+                  "jira_id": "AHP-1400",
+                  "manual_test_id": "KB-ING-M-001",
+                  "automation_test_id": "KB-ING-A-001",
+                  "manual_status": "PASSED",
+                  "automation_status": "PASSED",
+                  "executions": [
+                    {
+                      "execution_id": "EXE-20260722-133000-0013",
+                      "status": "PASSED",
+                      "environment": "SIT",
+                      "build": "2.3.18",
+                      "executed_at": "2026-07-22T13:30:00+08:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "team-management",
+      "name": "Team Management",
+      "default_expanded": false,
+      "capabilities": [
+        {
+          "id": "workflow-team",
+          "name": "Workflow Team",
+          "description": "Predefined playbook with validation and approval steps.",
+          "environments": {
+            "DEV": "PASSED",
+            "SIT": "BLOCKED",
+            "UAT": "NOT_EXECUTED",
+            "PPD": "NOT_EXECUTED",
+            "PROD": "NOT_EXECUTED"
+          },
+          "features": [
+            {
+              "id": "execute-workflow",
+              "name": "Execute Workflow",
+              "scenarios": [
+                {
+                  "id": "workflow-approval",
+                  "name": "Pause and resume after approval step",
+                  "jira_id": "AHP-1500",
+                  "manual_test_id": "TEAM-WF-M-001",
+                  "automation_test_id": "TEAM-WF-A-001",
+                  "manual_status": "PASSED",
+                  "automation_status": "BLOCKED",
+                  "executions": [
+                    {
+                      "execution_id": "EXE-20260722-130000-0014",
+                      "status": "BLOCKED",
+                      "environment": "SIT",
+                      "build": "2.3.18",
+                      "executed_at": "2026-07-22T13:00:00+08:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sequential-team",
+          "name": "Sequential Team",
+          "description": "Agents execute in a fixed sequence with output handoff.",
+          "environments": {
+            "DEV": "PASSED",
+            "SIT": "PASSED",
+            "UAT": "NOT_EXECUTED",
+            "PPD": "NOT_EXECUTED",
+            "PROD": "NOT_EXECUTED"
+          },
+          "features": [
+            {
+              "id": "sequential-handoff",
+              "name": "Sequential Output Handoff",
+              "scenarios": [
+                {
+                  "id": "sequential-three-agent",
+                  "name": "Pass output across three agents",
+                  "jira_id": "AHP-1510",
+                  "manual_test_id": "TEAM-SEQ-M-001",
+                  "automation_test_id": "TEAM-SEQ-A-001",
+                  "manual_status": "PASSED",
+                  "automation_status": "PASSED",
+                  "executions": [
+                    {
+                      "execution_id": "EXE-20260722-123000-0015",
+                      "status": "PASSED",
+                      "environment": "SIT",
+                      "build": "2.3.18",
+                      "executed_at": "2026-07-22T12:30:00+08:00"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

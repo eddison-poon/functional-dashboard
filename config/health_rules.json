@@ -1,0 +1,6 @@
+{
+  "green_min": 80,
+  "amber_min": 70,
+  "red_max": 69,
+  "notes": "Scores >=80 are Green; scores >=70 and <80 are Amber; scores <70 are Red."
+}

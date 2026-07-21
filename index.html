@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Agent Hub Engineering Intelligence Dashboard">
+  <title>Agent Hub | Functional Testing Dashboard</title>
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to dashboard content</a>
+
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">Engineering Intelligence Platform</p>
+      <h1>Functional Testing Dashboard</h1>
+    </div>
+    <div class="header-meta" aria-label="Snapshot metadata">
+      <span id="releaseLabel">Release —</span>
+      <span id="sprintLabel">Sprint —</span>
+      <span id="buildLabel">Build —</span>
+      <span id="snapshotLabel">Snapshot —</span>
+    </div>
+  </header>
+
+  <main id="workspace" class="page-shell">
+    <section class="kpi-strip" aria-labelledby="kpiHeading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Release overview</p>
+          <h2 id="kpiHeading">Current Testing Health</h2>
+        </div>
+        <button id="refreshButton" class="secondary-button" type="button">Refresh data</button>
+      </div>
+      <div id="kpiGrid" class="kpi-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="explorer-shell" aria-label="Capability explorer">
+      <aside class="capability-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Navigator</p>
+            <h2>Capability Explorer</h2>
+          </div>
+          <button id="collapseAllButton" class="icon-button" type="button" aria-label="Collapse all capability groups">Collapse all</button>
+        </div>
+
+        <div class="search-wrap">
+          <label for="capabilitySearch">Filter capabilities</label>
+          <input id="capabilitySearch" type="search" placeholder="Search MCP, skill, team..." autocomplete="off">
+        </div>
+
+        <div id="capabilityTree" class="capability-tree" role="tree" aria-label="Capability groups"></div>
+      </aside>
+
+      <section class="detail-panel" aria-labelledby="detailTitle">
+        <div id="detailContent" class="detail-content">
+          <div class="empty-state">
+            <div class="empty-icon" aria-hidden="true">◎</div>
+            <h2 id="detailTitle">Select a capability</h2>
+            <p>Choose an item from the left panel to review feature readiness, scenario results, environment health, and execution history.</p>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div id="executionDialog" class="dialog-backdrop" hidden>
+    <section class="dialog-card" role="dialog" aria-modal="true" aria-labelledby="dialogTitle">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">Execution history</p>
+          <h2 id="dialogTitle">Scenario executions</h2>
+        </div>
+        <button id="closeDialogButton" class="icon-button" type="button" aria-label="Close execution history">Close</button>
+      </div>
+      <div id="dialogBody"></div>
+    </section>
+  </div>
+
+  <noscript>
+    <div class="noscript-message">This dashboard requires JavaScript to load the generated snapshot.</div>
+  </noscript>
+
+  <script src="assets/js/dashboard.js" defer></script>
+</body>
+</html>

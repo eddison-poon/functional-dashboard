@@ -1,0 +1,2 @@
+# No third-party runtime dependencies.
+# Add linting/test tools here when the team standard is confirmed.

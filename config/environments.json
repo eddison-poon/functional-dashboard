@@ -1,0 +1,9 @@
+{
+  "environments": [
+    "DEV",
+    "SIT",
+    "UAT",
+    "PPD",
+    "PROD"
+  ]
+}
