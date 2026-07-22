@@ -15,6 +15,7 @@ if str(PYTHON_DIRECTORY) not in sys.path:
 
 
 from canonical.enums import (  # noqa: E402
+    AutomationFramework,
     Environment,
     EvidenceType,
     ExecutionStatus,
@@ -108,6 +109,20 @@ class CanonicalEnumTests(unittest.TestCase):
 class VocabularyDefinitionTests(unittest.TestCase):
     """Verify the approved values for each Version 1 vocabulary."""
 
+    def test_automation_framework_values(self) -> None:
+    self.assertEqual(
+        AutomationFramework.values(),
+        (
+            "PYTEST",
+            "PLAYWRIGHT",
+            "SELENIUM",
+            "ROBOT_FRAMEWORK",
+            "CYPRESS",
+            "CUCUMBER",
+            "OTHER",
+        ),
+    )
+    
     def test_requirement_status_values(self) -> None:
         self.assertEqual(
             RequirementStatus.values(),
