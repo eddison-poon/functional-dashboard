@@ -6,6 +6,7 @@ used by the Functional Testing Dashboard data engine.
 """
 
 from .enums import (
+    AutomationFramework,
     Environment,
     EvidenceType,
     ExecutionStatus,
@@ -33,7 +34,15 @@ from .scenario import {
 }
 
 
+from .test_definition import (
+    TestDefinition,
+    TestDefinitionValidationError,
+    TestStep,
+)
+
+
 __all__ = [
+    "AutomationFramework",
     "Environment",
     "EvidenceType",
     "ExecutionStatus",
@@ -48,6 +57,9 @@ __all__ = [
     "ScenarioValidationError",
     "Severity",
     "SourceSystem",
+    "TestDefinition",
     "TestDefinitionStatus",
+    "TestDefinitionValidationError",
+    "TestStep",
     "TestType",
 ]
