@@ -27,6 +27,12 @@ from .requirement import (
 )
 
 
+from .scenario import {
+    Scenario,
+    ScenarioValidationError,
+}
+
+
 __all__ = [
     "Environment",
     "EvidenceType",
@@ -37,7 +43,9 @@ __all__ = [
     "RequirementStatus",
     "RequirementType",
     "RequirementValidationError",
+    "Scenario",
     "ScenarioType",
+    "ScenarioValidationError",
     "Severity",
     "SourceSystem",
     "TestDefinitionStatus",
