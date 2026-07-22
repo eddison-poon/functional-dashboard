@@ -21,7 +21,7 @@ from .enums import (
 )
 
 
-from .requirementimport (
+from .requirement import (
     Requirement,
     RequirementValidationError,
 )
