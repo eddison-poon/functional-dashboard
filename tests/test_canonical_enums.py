@@ -21,6 +21,7 @@ from canonical.enums import (  # noqa: E402
     InvalidEnumValueError,
     Priority,
     RequirementStatus,
+    RequirementType,
     ScenarioType,
     Severity,
     SourceSystem,
@@ -119,6 +120,21 @@ class VocabularyDefinitionTests(unittest.TestCase):
                 "CANCELLED",
             ),
         )
+
+    def test_requirement_type_values(self) -> None:
+    self.assertEqual(
+        RequirementType.values(),
+        (
+            "EPIC",
+            "STORY",
+            "TASK",
+            "BUG",
+            "CHANGE_REQUEST",
+            "TECHNICAL_REQUIREMENT",
+            "BUSINESS_REQUIREMENT",
+            "OTHER",
+        ),
+    )
 
     def test_test_definition_status_values(self) -> None:
         self.assertEqual(
