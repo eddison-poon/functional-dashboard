@@ -11,7 +11,7 @@
   --green-soft: #e9f8f1;
   --amber: #b66a08;
   --amber-soft: #fff5df;
-  --red: #c0393b;
+  --red: #c0393b;f
   --red-soft: #fff0f0;
   --grey: #8792a2;
   --grey-soft: #eef1f5;
@@ -462,6 +462,10 @@ a { color: var(--accent); }
   place-items: center;
   padding: 20px;
   background: rgba(18, 27, 46, .52);
+}
+
+.dialog-backdrop[hidden] {
+  display none !important;
 }
 
 .dialog-card {
