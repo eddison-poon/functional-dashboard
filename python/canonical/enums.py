@@ -123,6 +123,19 @@ class RequirementStatus(CanonicalEnum):
     CANCELLED = "CANCELLED"
 
 
+class RequirementType(CanonicalEnum):
+    """Classification of a business or technical requirement."""
+
+    EPIC = "EPIC"
+    STORY = "STORY"
+    TASK = "TASK"
+    BUG = "BUG"
+    CHANGE_REQUEST = "CHANGE_REQUEST"
+    TECHNICAL_REQUIREMENT = "TECHNICAL_REQUIREMENT"
+    BUSINESS_REQUIREMENT = "BUSINESS_REQUIREMENT"
+    OTHER = "OTHER"
+    
+
 class TestDefinitionStatus(CanonicalEnum):
     """Lifecycle status of a reusable manual or automated test."""
 
