@@ -164,6 +164,18 @@ class TestType(CanonicalEnum):
     AUTOMATION = "AUTOMATION"
 
 
+class AutomationFramework(CanonicalEnum):
+    """Framework used to implement an automated test definition."""
+
+    PYTEST = "PYTEST"
+    PLAYWRIGHT = "PLAYWRIGHT"
+    SELENIUM = "SELENIUM"
+    ROBOT_FRAMEWORK = "ROBOT_FRAMEWORK"
+    CYPRESS = "CYPRESS"
+    CUCUMBER = "CUCUMBER"
+    OTHER = "OTHER"
+
+
 class Environment(CanonicalEnum):
     """Supported functional testing environments."""
 
