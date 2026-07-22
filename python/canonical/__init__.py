@@ -20,14 +20,23 @@ from .enums import (
     TestType,
 )
 
+
+from .requirementimport (
+    Requirement,
+    RequirementValidationError,
+)
+
+
 __all__ = [
     "Environment",
     "EvidenceType",
     "ExecutionStatus",
     "InvalidEnumValueError",
     "Priority",
+    "Requirement",
     "RequirementStatus",
     "RequirementType",
+    "RequirementValidationError",
     "ScenarioType",
     "Severity",
     "SourceSystem",
