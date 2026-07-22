@@ -22,6 +22,12 @@ from .enums import (
 )
 
 
+from .execution import (
+    Execution,
+    ExecutionValidationError,
+)
+
+
 from .requirement import (
     Requirement,
     RequirementValidationError,
@@ -45,7 +51,9 @@ __all__ = [
     "AutomationFramework",
     "Environment",
     "EvidenceType",
+    "Execution",
     "ExecutionStatus",
+    "ExecutionValidationError",
     "InvalidEnumValueError",
     "Priority",
     "Requirement",
