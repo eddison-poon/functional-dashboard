@@ -7,9 +7,9 @@ from .base import (
     RepositoryError,
     RepositoryValidationError,
 )
-
-from .requirement_repository import RequirementReository
+from .requirement_repository import RequirementRepository
 from .scenario_repository import ScenarioRepository
+from .test_definition_repository import TestDefinitionRepository
 
 __all__ = [
     "DuplicateItemError",
@@ -19,4 +19,5 @@ __all__ = [
     "RepositoryValidationError",
     "RequirementRepository",
     "ScenarioRepository",
+    "TestDefinitionRepository",
 ]
