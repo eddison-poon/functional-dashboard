@@ -5,6 +5,14 @@ from .coverage_summary import (
     FrameworkCoverage,
     TestCoverageSummary,
 )
+from .dashboard_snapshot import (
+    DashboardHealth,
+    DashboardSnapshot,
+    DashboardSnapshotService,
+    ExecutiveSummary,
+    ValidationReportProtocol,
+    ValidationSnapshot,
+)
 from .environment_summary import (
     EnvironmentReadinessService,
     EnvironmentReadinessStatus,
@@ -22,9 +30,13 @@ from .execution_summary import (
 
 __all__ = [
     "CoverageSummaryService",
+    "DashboardHealth",
+    "DashboardSnapshot",
+    "DashboardSnapshotService",
     "EnvironmentReadinessService",
     "EnvironmentReadinessStatus",
     "EnvironmentReadinessSummary",
+    "ExecutiveSummary",
     "ExecutionGroupKey",
     "ExecutionSelectionService",
     "ExecutionSummary",
@@ -32,4 +44,6 @@ __all__ = [
     "FrameworkCoverage",
     "ReadinessColour",
     "TestCoverageSummary",
+    "ValidationReportProtocol",
+    "ValidationSnapshot",
 ]
