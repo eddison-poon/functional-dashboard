@@ -8,10 +8,13 @@ from .base import (
     RepositoryValidationError,
 )
 
+from .requirement_repository import RequirementReository
+
 __all__ = [
     "DuplicateItemError",
     "InMemoryRepository",
     "ItemNotFoundError",
     "RepositoryError",
     "RepositoryValidationError",
+    "RequirementRepository",
 ]
