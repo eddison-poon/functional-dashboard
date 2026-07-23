@@ -13,6 +13,9 @@ instances held in memory.
 
 from __future__ import annotations
 
+from collections.abc import Callable
+from typing import TypeVar
+
 from canonical.enums import (
     Priority,
     RequirementStatus,
@@ -25,6 +28,9 @@ from .base import (
     InMemoryRepository,
     RepositoryValidationError,
 )
+
+
+ControlledValue = TypeVar("ControlledValue")
 
 
 class RequirementRepository(
@@ -295,14 +301,9 @@ class RequirementRepository(
 
     def _matching(
         self,
-        predicate: object,
+        predicate: Callable[[Requirement], bool],
     ) -> tuple[Requirement, ...]:
         """Return sorted requirements satisfying a predicate."""
-        if not callable(predicate):
-            raise RepositoryValidationError(
-                "Repository predicate must be callable."
-            )
-
         return tuple(
             requirement
             for requirement in self.list_all()
@@ -331,13 +332,14 @@ class RequirementRepository(
 
     @staticmethod
     def _parse_controlled_value(
-        enum_type: object,
+        enum_type: type[ControlledValue],
         value: object,
         field_name: str,
-    ) -> object:
+    ) -> ControlledValue:
         """Parse a canonical enum and convert failures to repository errors."""
         try:
-            return enum_type.parse(value)
+            parse = getattr(enum_type, "parse")
+            return parse(value)
         except (TypeError, ValueError, AttributeError) as exc:
             raise RepositoryValidationError(
                 f"Invalid {field_name}: {value!r}."
