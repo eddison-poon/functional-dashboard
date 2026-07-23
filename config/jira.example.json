@@ -1,0 +1,14 @@
+{
+  "base_url": "https://your-company.atlassian.net",
+  "project_key": "QA",
+  "issue_type": "Test",
+  "field_mapping": {
+    "scenario_id": "",
+    "business_module": "",
+    "business_feature": "",
+    "category": "",
+    "test_type": "",
+    "manual_exists": "",
+    "automation_exists": ""
+  }
+}
