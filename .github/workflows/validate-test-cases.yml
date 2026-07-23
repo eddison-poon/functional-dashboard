@@ -1,0 +1,27 @@
+name: Validate Test Cases
+
+on:
+  pull_request:
+    paths:
+      - "test_cases/**"
+      - "scripts/**"
+      - "requirements-phase-2.5.txt"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Phase 2.5 dependencies
+        run: pip install -r requirements-phase-2.5.txt
+      - name: Validate governed test cases
+        run: python scripts/validate_test_cases.py
+      - name: Build registry as an integrity check
+        run: python scripts/build_test_case_registry.py
