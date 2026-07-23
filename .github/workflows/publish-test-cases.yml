@@ -1,0 +1,59 @@
+name: Publish Approved Test Cases to Jira
+
+on:
+  workflow_dispatch:
+    inputs:
+      scenario_id:
+        description: "Optional Scenario ID; leave blank to publish every eligible approved case"
+        required: false
+        type: string
+      live_publish:
+        description: "Create Jira tickets and update repository files"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    concurrency: jira-test-case-publication
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements-phase-2.5.txt
+      - name: Validate before publication
+        run: python scripts/validate_test_cases.py
+      - name: Publish or dry-run
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          SCENARIO_ID: ${{ inputs.scenario_id }}
+          LIVE_PUBLISH: ${{ inputs.live_publish }}
+        run: |
+          args=()
+          if [ "$LIVE_PUBLISH" = "true" ]; then args+=(--live); fi
+          if [ -n "$SCENARIO_ID" ]; then args+=(--scenario-id "$SCENARIO_ID"); fi
+          python scripts/publish_test_cases_to_jira.py "${args[@]}"
+      - name: Rebuild registry
+        if: inputs.live_publish == true
+        run: python scripts/build_test_case_registry.py
+      - name: Commit publication results
+        if: inputs.live_publish == true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add test_cases data/test_case_registry.json logs/jira_publish_log.jsonl
+          if git diff --cached --quiet; then
+            echo "No publication changes to commit."
+          else
+            git commit -m "Publish approved test cases to Jira"
+            git push
+          fi
