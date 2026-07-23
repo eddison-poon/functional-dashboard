@@ -224,16 +224,17 @@ class TestCoverageSummaryModelTests(unittest.TestCase):
         self,
     ) -> None:
         summary = self.valid_summary()
-
+    
+        values = {
+            field_name: getattr(summary, field_name)
+            for field_name in summary.__dataclass_fields__
+        }
+        values["covered_scenarios"] = 4
+    
         with self.assertRaises(
             RepositoryValidationError
         ):
-            TestCoverageSummary(
-                **{
-                    **summary.__dict__,
-                    "covered_scenarios": 4,
-                }
-            )
+            TestCoverageSummary(**values)
 
     def test_unsorted_identifier_collection_is_rejected(
         self,
