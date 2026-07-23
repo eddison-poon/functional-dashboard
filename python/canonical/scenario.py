@@ -1,433 +1,380 @@
 
-"""
-Canonical Scenario model.
+"""Repository for canonical Scenario objects.
 
 Purpose
 -------
-Defines and validates one independently verifiable business behaviour.
+Provides deterministic storage, lookup, filtering, and text-search
+operations for canonical Scenario objects.
 
-Inputs
-------
-Normalized Scenario values supplied by builder or connector modules.
-
-Outputs
--------
-An immutable Scenario object and JSON-compatible dictionary output.
-
-Dependencies
-------------
-Uses the Python standard library and canonical controlled vocabularies.
+The repository contains no connector, persistence, metrics, or dashboard
+rendering logic. It operates only on validated canonical Scenario
+instances held in memory.
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-from typing import Any, Mapping
+from collections.abc import Callable, Iterable
+from typing import TypeVar
 
-from .enums import Priority, ScenarioType
+from canonical.enums import Priority, ScenarioType
+from canonical.scenario import Scenario
+
+from .base import (
+    InMemoryRepository,
+    RepositoryValidationError,
+)
 
 
-class ScenarioValidationError(ValueError):
-    """Raised when canonical Scenario data is invalid."""
+ControlledValue = TypeVar("ControlledValue")
 
 
-def _require_text(
-    value: object,
-    field_name: str,
-    *,
-    maximum_length: int,
-) -> str:
-    """
-    Validate and normalize a mandatory text value.
+class ScenarioRepository(
+    InMemoryRepository[Scenario]
+):
+    """In-memory repository for canonical scenarios."""
 
-    Surrounding whitespace is removed before the value is returned.
-    """
-
-    if not isinstance(value, str):
-        raise ScenarioValidationError(
-            f"{field_name} must be a string."
+    def __init__(self) -> None:
+        """Create an empty Scenario repository."""
+        super().__init__(
+            item_type=Scenario,
+            id_getter=lambda scenario: scenario.scenario_id,
+            entity_name="Scenario",
         )
 
-    normalized = value.strip()
+    def find_by_feature_id(
+        self,
+        feature_id: str,
+    ) -> tuple[Scenario, ...]:
+        """Return scenarios belonging to a feature.
 
-    if not normalized:
-        raise ScenarioValidationError(
-            f"{field_name} must not be empty."
+        Matching is case-insensitive after surrounding whitespace is
+        removed.
+        """
+        normalized_feature_id = self._normalize_query_text(
+            feature_id,
+            "feature_id",
         )
 
-    if len(normalized) > maximum_length:
-        raise ScenarioValidationError(
-            f"{field_name} must not exceed "
-            f"{maximum_length} characters."
+        return self._matching(
+            lambda scenario: (
+                scenario.feature_id.casefold()
+                == normalized_feature_id
+            )
         )
 
-    return normalized
+    def find_by_requirement_id(
+        self,
+        requirement_id: str,
+    ) -> tuple[Scenario, ...]:
+        """Return scenarios linked to one requirement identifier.
 
-
-def _optional_text(
-    value: object,
-    field_name: str,
-    *,
-    maximum_length: int,
-) -> str | None:
-    """
-    Validate and normalize an optional text value.
-
-    None and whitespace-only strings are normalized to None.
-    """
-
-    if value is None:
-        return None
-
-    if not isinstance(value, str):
-        raise ScenarioValidationError(
-            f"{field_name} must be a string or null."
+        Identifier matching is exact and case-sensitive after surrounding
+        whitespace is removed.
+        """
+        normalized_requirement_id = self._normalize_identifier(
+            requirement_id,
+            "requirement_id",
         )
 
-    normalized = value.strip()
-
-    if not normalized:
-        return None
-
-    if len(normalized) > maximum_length:
-        raise ScenarioValidationError(
-            f"{field_name} must not exceed "
-            f"{maximum_length} characters."
+        return self._matching(
+            lambda scenario: (
+                normalized_requirement_id
+                in scenario.requirement_ids
+            )
         )
 
-    return normalized
+    def find_by_any_requirement_id(
+        self,
+        requirement_ids: Iterable[str],
+    ) -> tuple[Scenario, ...]:
+        """Return scenarios linked to any requested requirement ID.
 
+        A scenario is returned when at least one of its requirement IDs
+        appears in the supplied collection.
+        """
+        normalized_requirement_ids = self._normalize_identifier_collection(
+            requirement_ids,
+            "requirement_ids",
+        )
 
-def _normalize_identifiers(
-    value: object,
-    field_name: str,
-    *,
-    minimum_count: int = 0,
-    maximum_item_length: int = 100,
-) -> tuple[str, ...]:
-    """
-    Normalize an identifier collection into a unique immutable tuple.
+        requested_ids = set(normalized_requirement_ids)
 
-    Values are trimmed and deduplicated while preserving their
-    first-seen order.
-    """
+        return self._matching(
+            lambda scenario: bool(
+                requested_ids.intersection(
+                    scenario.requirement_ids
+                )
+            )
+        )
 
-    if value is None:
-        raw_values: list[object] = []
-    else:
-        if isinstance(value, str):
-            raise ScenarioValidationError(
+    def find_by_all_requirement_ids(
+        self,
+        requirement_ids: Iterable[str],
+    ) -> tuple[Scenario, ...]:
+        """Return scenarios linked to every requested requirement ID."""
+        normalized_requirement_ids = self._normalize_identifier_collection(
+            requirement_ids,
+            "requirement_ids",
+        )
+
+        requested_ids = set(normalized_requirement_ids)
+
+        return self._matching(
+            lambda scenario: requested_ids.issubset(
+                scenario.requirement_ids
+            )
+        )
+
+    def find_by_type(
+        self,
+        scenario_type: ScenarioType | str,
+    ) -> tuple[Scenario, ...]:
+        """Return scenarios with the requested scenario type."""
+        parsed_type = self._parse_controlled_value(
+            ScenarioType,
+            scenario_type,
+            "scenario_type",
+        )
+
+        return self._matching(
+            lambda scenario: (
+                scenario.scenario_type is parsed_type
+            )
+        )
+
+    def find_by_priority(
+        self,
+        priority: Priority | str,
+    ) -> tuple[Scenario, ...]:
+        """Return scenarios with the requested priority."""
+        parsed_priority = self._parse_controlled_value(
+            Priority,
+            priority,
+            "priority",
+        )
+
+        return self._matching(
+            lambda scenario: (
+                scenario.priority is parsed_priority
+            )
+        )
+
+    def find_by_owner(
+        self,
+        owner: str,
+    ) -> tuple[Scenario, ...]:
+        """Return scenarios assigned to an owner.
+
+        Matching is case-insensitive after surrounding whitespace is
+        removed.
+        """
+        normalized_owner = self._normalize_query_text(
+            owner,
+            "owner",
+        )
+
+        return self._matching(
+            lambda scenario: (
+                scenario.owner is not None
+                and scenario.owner.casefold()
+                == normalized_owner
+            )
+        )
+
+    def find_by_tag(
+        self,
+        tag: str,
+    ) -> tuple[Scenario, ...]:
+        """Return scenarios containing the requested tag.
+
+        Scenario tags are normalized to lowercase by the canonical model.
+        """
+        normalized_tag = self._normalize_query_text(
+            tag,
+            "tag",
+        )
+
+        return self._matching(
+            lambda scenario: (
+                normalized_tag in scenario.tags
+            )
+        )
+
+    def find_active(
+        self,
+        active: bool = True,
+    ) -> tuple[Scenario, ...]:
+        """Return active or inactive scenarios."""
+        if type(active) is not bool:
+            raise RepositoryValidationError(
+                "active must be a Boolean value."
+            )
+
+        return self._matching(
+            lambda scenario: (
+                scenario.active is active
+            )
+        )
+
+    def search_text(
+        self,
+        query: str,
+    ) -> tuple[Scenario, ...]:
+        """Search across commonly used Scenario text fields.
+
+        The search is case-insensitive and performs substring matching
+        across:
+
+        - scenario ID
+        - feature ID
+        - requirement IDs
+        - name
+        - description
+        - tags
+        - preconditions
+        - expected outcome
+        - owner
+        """
+        normalized_query = self._normalize_query_text(
+            query,
+            "query",
+        )
+
+        def matches(scenario: Scenario) -> bool:
+            searchable_values = (
+                scenario.scenario_id,
+                scenario.feature_id,
+                scenario.name,
+                scenario.description,
+                scenario.expected_outcome,
+                scenario.owner,
+                *scenario.requirement_ids,
+                *scenario.tags,
+                *scenario.preconditions,
+            )
+
+            return any(
+                value is not None
+                and normalized_query in value.casefold()
+                for value in searchable_values
+            )
+
+        return self._matching(matches)
+
+    def _matching(
+        self,
+        predicate: Callable[[Scenario], bool],
+    ) -> tuple[Scenario, ...]:
+        """Return sorted scenarios satisfying a predicate.
+
+        The inherited list_all() method already returns records sorted by
+        scenario_id, so filtered results remain deterministic.
+        """
+        return tuple(
+            scenario
+            for scenario in self.list_all()
+            if predicate(scenario)
+        )
+
+    @staticmethod
+    def _normalize_query_text(
+        value: object,
+        field_name: str,
+    ) -> str:
+        """Validate and normalize case-insensitive query text."""
+        if not isinstance(value, str):
+            raise RepositoryValidationError(
+                f"{field_name} must be a string."
+            )
+
+        normalized_value = value.strip().casefold()
+
+        if not normalized_value:
+            raise RepositoryValidationError(
+                f"{field_name} must not be empty."
+            )
+
+        return normalized_value
+
+    @staticmethod
+    def _normalize_identifier(
+        value: object,
+        field_name: str,
+    ) -> str:
+        """Validate and trim a case-sensitive identifier."""
+        if not isinstance(value, str):
+            raise RepositoryValidationError(
+                f"{field_name} must be a string."
+            )
+
+        normalized_value = value.strip()
+
+        if not normalized_value:
+            raise RepositoryValidationError(
+                f"{field_name} must not be empty."
+            )
+
+        return normalized_value
+
+    @classmethod
+    def _normalize_identifier_collection(
+        cls,
+        values: object,
+        field_name: str,
+    ) -> tuple[str, ...]:
+        """Validate and normalize a collection of identifiers.
+
+        Values are trimmed and deduplicated while preserving first-seen
+        order. An empty collection is rejected because an any/all lookup
+        without identifiers is ambiguous.
+        """
+        if isinstance(values, (str, bytes)):
+            raise RepositoryValidationError(
                 f"{field_name} must be a collection of strings, "
                 "not a single string."
             )
 
         try:
-            raw_values = list(value)
+            raw_values = list(values)
         except TypeError as exc:
-            raise ScenarioValidationError(
+            raise RepositoryValidationError(
                 f"{field_name} must be a collection of strings."
             ) from exc
 
-    normalized_values: list[str] = []
-    seen_values: set[str] = set()
+        normalized_values: list[str] = []
+        seen_values: set[str] = set()
 
-    for index, raw_value in enumerate(raw_values):
-        if not isinstance(raw_value, str):
-            raise ScenarioValidationError(
-                f"{field_name}[{index}] must be a string."
+        for index, raw_value in enumerate(raw_values):
+            try:
+                normalized_value = cls._normalize_identifier(
+                    raw_value,
+                    f"{field_name}[{index}]",
+                )
+            except RepositoryValidationError:
+                raise
+
+            if normalized_value not in seen_values:
+                seen_values.add(normalized_value)
+                normalized_values.append(normalized_value)
+
+        if not normalized_values:
+            raise RepositoryValidationError(
+                f"{field_name} must contain at least one identifier."
             )
 
-        normalized = raw_value.strip()
+        return tuple(normalized_values)
 
-        if not normalized:
-            raise ScenarioValidationError(
-                f"{field_name}[{index}] must not be empty."
-            )
-
-        if len(normalized) > maximum_item_length:
-            raise ScenarioValidationError(
-                f"{field_name}[{index}] must not exceed "
-                f"{maximum_item_length} characters."
-            )
-
-        if normalized not in seen_values:
-            seen_values.add(normalized)
-            normalized_values.append(normalized)
-
-    if len(normalized_values) < minimum_count:
-        raise ScenarioValidationError(
-            f"{field_name} must contain at least "
-            f"{minimum_count} value(s)."
-        )
-
-    return tuple(normalized_values)
-
-
-def _normalize_tags(value: object) -> tuple[str, ...]:
-    """
-    Normalize tags into a unique lowercase immutable tuple.
-
-    Blank tags are ignored.
-    """
-
-    if value is None:
-        return ()
-
-    if isinstance(value, str):
-        raise ScenarioValidationError(
-            "tags must be a collection of strings, "
-            "not a single string."
-        )
-
-    try:
-        raw_tags = list(value)
-    except TypeError as exc:
-        raise ScenarioValidationError(
-            "tags must be a collection of strings."
-        ) from exc
-
-    normalized_tags: list[str] = []
-    seen_tags: set[str] = set()
-
-    for index, raw_tag in enumerate(raw_tags):
-        if not isinstance(raw_tag, str):
-            raise ScenarioValidationError(
-                f"tags[{index}] must be a string."
-            )
-
-        tag = raw_tag.strip().lower()
-
-        if not tag:
-            continue
-
-        if len(tag) > 100:
-            raise ScenarioValidationError(
-                f"tags[{index}] must not exceed 100 characters."
-            )
-
-        if tag not in seen_tags:
-            seen_tags.add(tag)
-            normalized_tags.append(tag)
-
-    return tuple(normalized_tags)
-
-
-def _normalize_preconditions(value: object) -> tuple[str, ...]:
-    """
-    Normalize preconditions into a unique immutable tuple.
-
-    Preconditions retain capitalization because they are human-readable.
-    Blank values are ignored.
-    """
-
-    if value is None:
-        return ()
-
-    if isinstance(value, str):
-        raise ScenarioValidationError(
-            "preconditions must be a collection of strings, "
-            "not a single string."
-        )
-
-    try:
-        raw_preconditions = list(value)
-    except TypeError as exc:
-        raise ScenarioValidationError(
-            "preconditions must be a collection of strings."
-        ) from exc
-
-    normalized_preconditions: list[str] = []
-    seen_preconditions: set[str] = set()
-
-    for index, raw_precondition in enumerate(raw_preconditions):
-        if not isinstance(raw_precondition, str):
-            raise ScenarioValidationError(
-                f"preconditions[{index}] must be a string."
-            )
-
-        precondition = raw_precondition.strip()
-
-        if not precondition:
-            continue
-
-        if len(precondition) > 1_000:
-            raise ScenarioValidationError(
-                f"preconditions[{index}] must not exceed "
-                "1000 characters."
-            )
-
-        if precondition not in seen_preconditions:
-            seen_preconditions.add(precondition)
-            normalized_preconditions.append(precondition)
-
-    return tuple(normalized_preconditions)
-
-
-@dataclass(frozen=True, slots=True)
-class Scenario:
-    """
-    Immutable canonical business-behaviour Scenario.
-
-    Controlled fields may be supplied as canonical enum members or
-    case-insensitive strings.
-    """
-
-    scenario_id: str
-    feature_id: str
-    requirement_ids: tuple[str, ...] | list[str]
-    name: str
-    scenario_type: ScenarioType | str
-    priority: Priority | str
-
-    description: str | None = None
-    tags: tuple[str, ...] | list[str] = field(default_factory=tuple)
-    preconditions: tuple[str, ...] | list[str] = field(
-        default_factory=tuple
-    )
-    expected_outcome: str | None = None
-    owner: str | None = None
-    active: bool = True
-
-    def __post_init__(self) -> None:
-        """Normalize and validate all Scenario fields."""
-
-        object.__setattr__(
-            self,
-            "scenario_id",
-            _require_text(
-                self.scenario_id,
-                "scenario_id",
-                maximum_length=100,
-            ),
-        )
-
-        object.__setattr__(
-            self,
-            "feature_id",
-            _require_text(
-                self.feature_id,
-                "feature_id",
-                maximum_length=150,
-            ),
-        )
-
-        object.__setattr__(
-            self,
-            "requirement_ids",
-            _normalize_identifiers(
-                self.requirement_ids,
-                "requirement_ids",
-                minimum_count=1,
-                maximum_item_length=100,
-            ),
-        )
-
-        object.__setattr__(
-            self,
-            "name",
-            _require_text(
-                self.name,
-                "name",
-                maximum_length=300,
-            ),
-        )
-
-        object.__setattr__(
-            self,
-            "scenario_type",
-            ScenarioType.parse(self.scenario_type),
-        )
-
-        object.__setattr__(
-            self,
-            "priority",
-            Priority.parse(self.priority),
-        )
-
-        object.__setattr__(
-            self,
-            "description",
-            _optional_text(
-                self.description,
-                "description",
-                maximum_length=20_000,
-            ),
-        )
-
-        object.__setattr__(
-            self,
-            "tags",
-            _normalize_tags(self.tags),
-        )
-
-        object.__setattr__(
-            self,
-            "preconditions",
-            _normalize_preconditions(self.preconditions),
-        )
-
-        object.__setattr__(
-            self,
-            "expected_outcome",
-            _optional_text(
-                self.expected_outcome,
-                "expected_outcome",
-                maximum_length=5_000,
-            ),
-        )
-
-        object.__setattr__(
-            self,
-            "owner",
-            _optional_text(
-                self.owner,
-                "owner",
-                maximum_length=300,
-            ),
-        )
-
-        if type(self.active) is not bool:
-            raise ScenarioValidationError(
-                "active must be a Boolean value."
-            )
-
-    def to_dict(self) -> dict[str, Any]:
-        """Return the Scenario as a JSON-compatible dictionary."""
-
-        return {
-            "scenario_id": self.scenario_id,
-            "feature_id": self.feature_id,
-            "requirement_ids": list(self.requirement_ids),
-            "name": self.name,
-            "description": self.description,
-            "scenario_type": self.scenario_type.value,
-            "priority": self.priority.value,
-            "tags": list(self.tags),
-            "preconditions": list(self.preconditions),
-            "expected_outcome": self.expected_outcome,
-            "owner": self.owner,
-            "active": self.active,
-        }
-
-    @classmethod
-    def from_dict(
-        cls,
-        data: Mapping[str, Any],
-    ) -> "Scenario":
-        """
-        Build and validate a Scenario from dictionary input.
-
-        Unknown fields are rejected rather than silently ignored.
-        """
-
-        if not isinstance(data, Mapping):
-            raise ScenarioValidationError(
-                "Scenario input must be a mapping."
-            )
-
+    @staticmethod
+    def _parse_controlled_value(
+        enum_type: type[ControlledValue],
+        value: object,
+        field_name: str,
+    ) -> ControlledValue:
+        """Parse a canonical enum and convert failures to repository errors."""
         try:
-            return cls(**dict(data))
-        except TypeError as exc:
-            raise ScenarioValidationError(
-                f"Invalid Scenario fields: {exc}"
+            parse = getattr(enum_type, "parse")
+            return parse(value)
+        except (TypeError, ValueError, AttributeError) as exc:
+            raise RepositoryValidationError(
+                f"Invalid {field_name}: {value!r}."
             ) from exc
