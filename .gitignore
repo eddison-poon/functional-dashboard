@@ -1,0 +1,12 @@
+# Phase 2.5 Jira secrets and local environment files
+.env
+.env.*
+!config/jira.env.example
+config/jira.json
+
+# Python runtime files
+__pycache__/
+*.py[cod]
+
+# Local temporary output
+.tmp/
