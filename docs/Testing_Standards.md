@@ -5,7 +5,7 @@ Status: Phase 2.5 baseline
 
 ## 1. Purpose
 
-This standard defines how contributors create and govern Business Scenarios and their downstream testing assets for review, Jira publication registry generation, and dashboard reporting.
+This standard defines how contributors create and govern Business Scenarios and their downstream testing assets for review, Jira publication, registry generation, and dashboard reporting.
 
 ## 2. Core model
 
@@ -16,7 +16,7 @@ Business Scenario
 └── Many execution records
 ```
 
-A test definition describes **what must be verified**. Environment, build, tester, date, and result belong to execution records and must not be embedded in the reusable definition.
+A Business Scenario describes the expected business behavior. Manual and Automation Teet Definitions describe how that behavior is verified.
 
 ## 2.1 Separation of Responsibilities
 
