@@ -888,14 +888,19 @@ class ExecutionSearchTests(
 ):
     """Tests covering multi-field text search."""
 
-    def test_search_by_execution_id(self) -> None:
+    def test_search_by_execution_id_and_rerun_reference(
+        self,
+    ) -> None:
         result = self.repository.search_text(
             "EXEC-004"
         )
-
+    
         self.assertEqual(
             result,
-            (self.failed,),
+            (
+                self.failed,
+                self.rerun_passed,
+            ),
         )
 
     def test_search_by_test_definition_id(self) -> None:
