@@ -1,6 +1,10 @@
-# Approved Test Case Examples
+# Approved Business Scenario Examples
 
-The examples in this document demonstrate expected authoring quality. The machine-readable source example is stored in `test_cases/published/MCP-JIRA-001.md` only after a real Jira ticket exists. Until then, use the template and the example below as guidance.
+This document defines the approved structure, formatting, wording, and authoring quality for canonical Business Scenario documents.
+
+The example shall be treated as the structural template for generated Business Scenarios.
+
+A Business Scenario describes one business behaviour and acts as the parent artifact for downstream Manual Test Definitions and Automation Test Definitions.
 
 ## Example — Create Jira Issue with Mandatory Fields
 
@@ -26,7 +30,7 @@ Verify that an authorized user or supported MCP client can create a Jira issue u
 - The caller has permission to create issues in the target Jira project.
 - Jira and the supported MCP path are available.
 
-### Test Steps
+### Business Steps
 
 | Step | Action | Expected Outcome |
 |---:|---|---|
