@@ -398,6 +398,7 @@ class ExecutionRepository(
                 item.build_version,
                 item.external_reference,
                 item.remarks,
+                item.rerun_of_execution_id,
                 *item.defect_ids,
                 *item.evidence_ids,
             ]
