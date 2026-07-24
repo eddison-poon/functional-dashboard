@@ -3,23 +3,21 @@
 ## Workflow
 
 ```text
-Author creates Markdown test case
-        ↓
+Requirement
+    ↓
+Business Scenario generation
+    ↓
 test_cases/pending_review/
-        ↓
-Automated validation + human review
-        ↓
+    ↓
+Business Scenario review
+    ↓
 test_cases/reviewed/
-        ↓
-Manual Jira publication workflow
-        ↓
-Jira ID returned and written to metadata
-        ↓
+    ↓
+Jira publication
+    ↓
 test_cases/published/
-        ↓
-data/test_case_registry.json
-        ↓
-reports/test_cases.html
+    ↓
+Manual and Automation definition generation
 ```
 
 ## State rules
