@@ -1,4 +1,4 @@
-# Test Case Review Checklist
+# Business Scenario Review Checklist
 
 Use this checklist before moving a file from `pending_review/` to `reviewed/`.
 
@@ -15,10 +15,15 @@ Use this checklist before moving a file from `pending_review/` to `reviewed/`.
 - [ ] Business objective explains what is being verified and why.
 - [ ] Preconditions are complete, concise, and reusable.
 - [ ] Test data is provided where specific values or rules are required.
-- [ ] Steps are ordered, reproducible, and limited to one action per row where practical.
+- [ ] Business Steps are ordered, concise, implementation independent, and limited to one business action per row where practical.
 - [ ] Each step has an observable expected outcome.
 - [ ] Overall expected result is measurable.
 - [ ] Negative, permission, validation, or error behaviour is not accidentally mixed into a separate happy-path scenario.
+- [ ] The scenario describes exactly one business behaviour.
+- [ ] Business Steps do not contain detailed manual execution instructions.
+- [ ] Business Steps do not contain automation implementation details.
+- [ ] Negative, boundary, permission, and validation coverage is deferred to downstream Manual and Automation Test Definitions.
+- [ ] The document structure matches `docs/Approved_Business_Scenario_Example.md`.
 
 ## Model compliance
 
