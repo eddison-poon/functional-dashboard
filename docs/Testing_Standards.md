@@ -5,7 +5,7 @@ Status: Phase 2.5 baseline
 
 ## 1. Purpose
 
-This standard defines how contributors create test cases for review, Jira publication, registry generation, and dashboard reporting.
+This standard defines how contributors create and govern Business Scenarios and their downstream testing assets for review, Jira publication registry generation, and dashboard reporting.
 
 ## 2. Core model
 
@@ -97,7 +97,7 @@ Scenario IDs are permanent, unique, and must never be reused.
 | `review_status` | Yes | Controlled lifecycle status |
 | Business Objective | Yes | Purpose and business behaviour |
 | Preconditions | Yes | Minimum setup and access conditions |
-| Test Steps | Yes | Ordered actions with expected outcomes |
+| Business Steps | Yes | Concise business actions with observable expected outcomes |
 | Overall Expected Result | Yes | Final measurable outcome |
 
 At least one of `manual_exists` or `automation_exists` must be `true`.
@@ -139,9 +139,10 @@ Use a specific behaviour and input condition where useful.
 
 Good:
 
-- `Create Jira Issue with Mandatory Fields`
-- `Reject Jira Issue Without Summary`
-- `Prevent Read-Only User from Creating Jira Issue`
+- `Create Jira Issue`
+- `Update Jira Issue`
+- `Transition Jira Issue Status`
+- `Retrieve Jira Issue`
 
 Avoid:
 
