@@ -137,19 +137,19 @@ class VocabularyDefinitionTests(unittest.TestCase):
         )
 
     def test_requirement_type_values(self) -> None:
-    self.assertEqual(
-        RequirementType.values(),
-        (
-            "EPIC",
-            "STORY",
-            "TASK",
-            "BUG",
-            "CHANGE_REQUEST",
-            "TECHNICAL_REQUIREMENT",
-            "BUSINESS_REQUIREMENT",
-            "OTHER",
-        ),
-    )
+        self.assertEqual(
+            RequirementType.values(),
+            (
+                "EPIC",
+                "STORY",
+                "TASK",
+                "BUG",
+                "CHANGE_REQUEST",
+                "TECHNICAL_REQUIREMENT",
+                "BUSINESS_REQUIREMENT",
+                "OTHER",
+            ),
+        )
 
     def test_test_definition_status_values(self) -> None:
         self.assertEqual(
