@@ -24,7 +24,7 @@ Then open `/reports/test_cases.html` through the local server.
 
 ## First authoring cycle
 
-1. Copy `test_cases/templates/test_case_template.md`.
+1. Copy `test_cases/templates/business_scenario_template.md`.
 2. Rename it using the Scenario ID, for example `MCP-JIRA-001.md`.
 3. Complete the file and place it in `test_cases/pending_review/`.
 4. Run validation.
