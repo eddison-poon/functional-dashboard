@@ -22,7 +22,7 @@ AMBER:
     - testing is incomplete
     - Scenario coverage is incomplete
     - Automation pipeline or repository readiness is incomplete
-    - execution results span multiple environments, cycles, or builds
+    - execution results span multiple cycles, or builds
 
 GREEN:
     - no Red or Amber condition is present
@@ -653,8 +653,6 @@ class DashboardSnapshotService:
             or has_mixed_builds
             or has_coverage_gap
             or has_incomplete_testing
-            or execution_summary
-            .includes_multiple_environments
             or execution_summary.includes_multiple_cycles
         ):
             return DashboardHealth.AMBER
