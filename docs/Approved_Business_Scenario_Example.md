@@ -1,4 +1,4 @@
-# Approved Business Scenario Examples
+# Approved Business Scenario Example
 
 This document defines the approved structure, formatting, wording, and authoring quality for canonical Business Scenario documents.
 
@@ -29,6 +29,13 @@ Verify that an authorized user or supported MCP client can create a Jira issue u
 - The caller is authenticated.
 - The caller has permission to create issues in the target Jira project.
 - Jira and the supported MCP path are available.
+
+### Test Data
+
+| Data Item | Value / Rule |
+|---|---|
+| Jira project | A valid project where the caller has issue-creation permission |
+| Mandatory issue fields | Valid values that satisfy the target project configuration |
 
 ### Business Steps
 
