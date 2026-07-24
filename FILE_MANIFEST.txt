@@ -1,6 +1,5 @@
 .github/workflows/publish-test-cases.yml
 .github/workflows/validate-test-cases.yml
-.gitignore.phase-2.5.additions
 PHASE_2_5_README.md
 config/jira.env.example
 config/jira.example.json
