@@ -18,6 +18,56 @@ Business Scenario
 
 A test definition describes **what must be verified**. Environment, build, tester, date, and result belong to execution records and must not be embedded in the reusable definition.
 
+## 2.1 Separation of Responsibilities
+
+Business Scenarios describe WHAT the business should do.
+
+Manual Test Definitions describe HOW a tester verifies the behaviour.
+
+Automation Test Definitions describe HOW software verifies the behaviour.
+
+Execution Records describe WHEN, WHERE, and WITH WHAT RESULT a definition was executed.
+
+These responsibilities must not overlap.
+
+## 2.2 Business Scenario Principles
+
+### Stability
+
+A Business Scenario shall describe stable business behaviour rather than temporary user-interface or implementation details.
+
+It should remain valid when:
+
+- page layouts change
+- button positions change
+- visual styling changes
+- underlying technology changes
+- implementation details change
+
+### Reusability
+
+A Business Scenario is the parent artifact for one or more Manual Test Definitions and one or more Automation Test Definitions.
+
+It shall not contain:
+
+- detailed manual execution instructions
+- automation framework details
+- environment-specific information
+- browser-specific behaviour
+- API implementation details
+- database verification instructions
+- execution results
+
+### Single Responsibility
+
+Each Business Scenario shall describe exactly one business behaviour.
+
+Independent business behaviours must be represented by separate Business Scenarios.
+
+### Traceability
+
+Every Manual Test Definition and Automation Test Definition shall reference exactly one parent Business Scenario.
+
 ## 3. File and identifier conventions
 
 | Item | Convention | Example |
@@ -117,7 +167,7 @@ Avoid:
 - Open Jira and click Create.
 - Test in SIT build 102.
 
-## 8. Test steps
+## 8. Business steps
 
 Use a table with one action and one observable expected outcome per row.
 
@@ -153,7 +203,7 @@ Avoid:
 
 ## 12. Submission rules
 
-1. Copy `test_cases/templates/test_case_template.md`.
+1. Copy `test_cases/templates/business_scenario_template.md`.
 2. Rename it to the Scenario ID.
 3. Complete all mandatory fields and sections.
 4. Place it in `test_cases/pending_review/`.
