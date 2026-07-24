@@ -44,11 +44,3 @@ Describe the business behaviour and why it must be verified.
 ### Overall Expected Result
 
 Describe the final measurable business outcome.
-
-# Automation Notes
-
-Use this section only when `automation_exists: true`. Record the intended automation approach, dependencies, or constraints. Do not record execution results here.
-
-# Remarks
-
-Add supporting notes or write `None`.
