@@ -165,8 +165,8 @@ The generated Business Scenario will become the parent of all downstream testing
 
 Read:
 
-- Testing_Standards.md
-- Approved_Business_Scenario_Example.md
+- docs/Testing_Standards.md
+- docs/Approved_Business_Scenario_Example.md
 
 Learn both documents completely.
 
@@ -195,7 +195,7 @@ Examples include:
 - Assumptions
 - Priority
 
-The mandatory fields are determined by Testing_Standards.md.
+The mandatory fields are determined by docs/Testing_Standards.md.
 
 ---
 
@@ -243,25 +243,13 @@ Do not expand into validation scenarios.
 
 ## Step 5
 
-Generate Acceptance Criteria.
-
-Acceptance Criteria describe:
-
-What must be true for the business behaviour to be considered successful.
-
-Do not describe testing logic.
-
----
-
-## Step 6
-
 Validate the document.
 
 Verify internally:
 
 ✓ Every mandatory field exists.
 
-✓ Formatting matches Approved_Business_Scenario_Example.md.
+✓ Formatting matches docs/Approved_Business_Scenario_Example.md.
 
 ✓ Markdown layout is identical.
 
@@ -285,6 +273,9 @@ Verify internally:
 
 Return ONLY the completed markdown document.
 
+The output filename must equal the generated Scenario ID: `<SCENARIO-ID>.md`
+Example: `MCP-JIRA-001.md`
+
 Do not explain.
 
 Do not justify.
@@ -299,7 +290,7 @@ Do not include AI commentary.
 
 # TEMPLATE RULE
 
-Approved_Business_Scenario_Example.md is the template.
+docs/Approved_Business_Scenario_Example.md is the template.
 
 Preserve exactly:
 
@@ -324,8 +315,8 @@ Never remove existing sections.
 
 The generated document shall:
 
-- comply with Testing_Standards.md
-- visually match Approved_Business_Scenario_Example.md
+- comply with docs/Testing_Standards.md
+- visually match docs/Approved_Business_Scenario_Example.md
 - describe exactly one business behaviour
 - be implementation independent
 - become the parent artifact for downstream Manual Test Cases and Automation Test Cases
