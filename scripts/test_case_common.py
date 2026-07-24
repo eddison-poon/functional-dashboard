@@ -52,7 +52,7 @@ REQUIRED_METADATA = {
 REQUIRED_SECTIONS = {
     "Business Objective",
     "Preconditions",
-    "Test Steps",
+    "Business Steps",
     "Overall Expected Result",
 }
 
@@ -101,7 +101,7 @@ def write_test_case(path: Path, metadata: dict[str, Any], body: str) -> None:
 
 def section_content(body: str, heading: str) -> str:
     pattern = re.compile(
-        rf"^#\s+{re.escape(heading)}\s*$\n(.*?)(?=^#\s+|\Z)",
+        rf"^###\s+{re.escape(heading)}\s*$\n(.*?)(?=^###\s+|\Z)",
         re.MULTILINE | re.DOTALL,
     )
     match = pattern.search(body)
@@ -169,9 +169,9 @@ def validate_case(case: ParsedTestCase, root: Path) -> list[str]:
         if not content:
             errors.append(f"Required section '# {heading}' is missing or empty.")
 
-    steps = section_content(case.body, "Test Steps")
+    steps = section_content(case.body, "Business Steps")
     if steps and "| Step | Action | Expected Outcome |" not in steps:
-        errors.append("Test Steps must use the standard Step / Action / Expected Outcome table.")
+        errors.append("Business Steps must use the standard Step / Action / Expected Outcome table.")
 
     return errors
 
