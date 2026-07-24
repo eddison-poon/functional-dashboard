@@ -63,9 +63,9 @@ Create repository secrets with these exact names:
 
 The publication workflow is manually triggered and defaults to dry-run.
 
-## Existing dashboard integration
+## Planned future dashboard integration
 
-Add a link from the existing dashboard navigation to:
+Add a link from the planned future output of dashboard navigation to:
 
 ```text
 reports/test_cases.html
