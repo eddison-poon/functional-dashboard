@@ -167,8 +167,13 @@ Read:
 
 - docs/Testing_Standards.md
 - docs/Approved_Business_Scenario_Example.md
+- test_cases/templates/business_scenario_template.md
 
-Learn both documents completely.
+Use `docs/Approved_Business_Scenario_Example.md` for approved wording and content quality.
+
+Use `test_cases/templates/business_scenario_template.md` for the complete output structure, including YAML front matter and lifecycle metadata.
+
+Learn all three documents completely.
 
 Do not generate anything yet.
 
