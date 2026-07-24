@@ -88,7 +88,7 @@ def create_scenario(
     return Scenario(
         scenario_id=scenario_id,
         feature_id=feature_id,
-        requirement_ids=[],
+        requirement_ids=[f"REQ-{scenario_id}"],
         name=f"Scenario {scenario_id}",
         scenario_type="POSITIVE",
         priority="HIGH",
