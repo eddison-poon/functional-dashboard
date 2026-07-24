@@ -1,13 +1,12 @@
 # Functional Testing Dashboard — Business Scenario Data Dictionary
-Permanent canonical Business Scenario identifier
 
 Version: 1.0
 
-## Test-case metadata
+## Business Scenario metadata
 
 | Field | Type | Required | Allowed / Format | Owner | Description |
 |---|---|:---:|---|---|---|
-| `scenario_id` | String | Yes | `^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+-[0-9]{3,}$` | Author | Permanent canonical test-case identifier |
+| `scenario_id` | String | Yes | `^[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+-[0-9]{3,}$` | Author | Permanent canonical Business Scenario identifier |
 | `scenario_name` | String | Yes | 5–160 characters | Author | Clear business behaviour being verified |
 | `business_feature` | String | Yes | Non-empty | Author | Functional capability used for grouping |
 | `business_module` | String | Yes | Non-empty | Author | Application, product area, or domain |
