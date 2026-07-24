@@ -31,8 +31,8 @@ Manual and Automation definition generation
 
 ## Contributor process
 
-1. Copy the test-case template.
-2. Complete the mandatory metadata and Markdown sections.
+1. Copy `test_cases/templates/business_scenario_template.md`.
+2. Complete the mandatory Business Scenario metadata and Markdown sections in accordance with `docs/Testing_Standards.md`.
 3. Place the file in `pending_review/`.
 4. Open a pull request.
 5. Correct validation or review findings.
