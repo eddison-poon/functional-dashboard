@@ -19,29 +19,29 @@ reviewed_date: null
 published_date: null
 ---
 
-# Business Objective
+### Business Objective
 
 Describe the business behaviour and why it must be verified.
 
-# Preconditions
+### Preconditions
 
 - State the minimum required access, data, configuration, or system condition.
 - Do not include environment-specific execution results.
 
-# Test Data
+### Test Data
 
 | Data Item | Value / Rule |
 |---|---|
 | Example | Replace with required test data |
 
-# Business Steps
+### Business Steps
 
 | Step | Action | Expected Outcome |
 |---:|---|---|
-| 1 | Replace with the first tester action. | Replace with the observable outcome. |
-| 2 | Replace with the next tester action. | Replace with the observable outcome. |
+| 1 | Replace with the first concise business action. | Replace with the observable outcome. |
+| 2 | Replace with the next concise business action. | Replace with the observable outcome. |
 
-# Overall Expected Result
+### Overall Expected Result
 
 Describe the final measurable business outcome.
 
