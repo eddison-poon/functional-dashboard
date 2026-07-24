@@ -5,13 +5,14 @@ PHASE_2_5_README.md
 config/jira.env.example
 config/jira.example.json
 data/test_case_registry.json
-docs/Approved_Test_Case_Examples.md
+docs/Approved_Business_Scenario_Example.md
 docs/Dashboard_Data_Dictionary.md
 docs/Enhancement_Backlog.md
 docs/Phase_2_5_Workflow.md
-docs/Test_Case_Review_Checklist.md
+docs/Business_Scenario_Review_Checklist.md
 docs/Testing_Standards.md
 logs/.gitkeep
+prompts/Business_Scenario_Generator.md
 reports/test_cases.html
 requirements-phase-2.5.txt
 scripts/build_test_case_registry.py
@@ -22,4 +23,4 @@ test_cases/pending_review/.gitkeep
 test_cases/published/.gitkeep
 test_cases/rejected/.gitkeep
 test_cases/reviewed/.gitkeep
-test_cases/templates/test_case_template.md
+test_cases/templates/business_scenario_template.md
