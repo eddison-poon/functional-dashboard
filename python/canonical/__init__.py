@@ -34,10 +34,10 @@ from .requirement import (
 )
 
 
-from .scenario import {
+from .scenario import (
     Scenario,
     ScenarioValidationError,
-}
+)
 
 
 from .test_definition import (
