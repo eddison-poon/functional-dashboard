@@ -1,4 +1,5 @@
-# Functional Testing Dashboard — Test Case Data Dictionary
+# Functional Testing Dashboard — Business Scenario Data Dictionary
+Permanent canonical Business Scenario identifier
 
 Version: 1.0
 
@@ -32,7 +33,7 @@ Version: 1.0
 | `Business Objective` | Yes | Business purpose and behaviour under test |
 | `Preconditions` | Yes | Required access, data, dependency, and state |
 | `Test Data` | No | Input values, data rules, or references |
-| `Test Steps` | Yes | Ordered action and expected-outcome table |
+| `Business Steps` | Yes | Concise business action and expected-outcome table |
 | `Overall Expected Result` | Yes | Final observable acceptance outcome |
 
 ## Generated registry fields
