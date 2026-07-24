@@ -41,10 +41,8 @@ def build_description(body: str) -> str:
         "Business Objective",
         "Preconditions",
         "Test Data",
-        "Test Steps",
+        "Business Steps",
         "Overall Expected Result",
-        "Automation Notes",
-        "Remarks",
     ):
         content = section_content(body, heading)
         if content:
