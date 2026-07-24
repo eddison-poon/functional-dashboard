@@ -110,18 +110,18 @@ class VocabularyDefinitionTests(unittest.TestCase):
     """Verify the approved values for each Version 1 vocabulary."""
 
     def test_automation_framework_values(self) -> None:
-    self.assertEqual(
-        AutomationFramework.values(),
-        (
-            "PYTEST",
-            "PLAYWRIGHT",
-            "SELENIUM",
-            "ROBOT_FRAMEWORK",
-            "CYPRESS",
-            "CUCUMBER",
-            "OTHER",
-        ),
-    )
+        self.assertEqual(
+            AutomationFramework.values(),
+            (
+                "PYTEST",
+                "PLAYWRIGHT",
+                "SELENIUM",
+                "ROBOT_FRAMEWORK",
+                "CYPRESS",
+                "CUCUMBER",
+                "OTHER",
+            ),
+        )
     
     def test_requirement_status_values(self) -> None:
         self.assertEqual(
