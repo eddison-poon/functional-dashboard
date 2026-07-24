@@ -1,4 +1,4 @@
-# Phase 2.5 — Test Case Governance and Jira Publishing
+# Phase 2.5 — Business Scenario Governance and Jira Publishing
 
 ## Workflow
 
