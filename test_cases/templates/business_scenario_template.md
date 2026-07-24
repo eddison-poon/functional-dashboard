@@ -34,7 +34,7 @@ Describe the business behaviour and why it must be verified.
 |---|---|
 | Example | Replace with required test data |
 
-# Test Steps
+# Business Steps
 
 | Step | Action | Expected Outcome |
 |---:|---|---|
