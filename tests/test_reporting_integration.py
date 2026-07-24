@@ -209,7 +209,7 @@ def create_execution(
             else "QA User"
         ),
         build_version=build_version,
-        source_system="TEST_DATA",
+        source_system="MANUAL_ENTRY",
         defect_ids=defect_ids,
         evidence_ids=(),
         remarks=None,
