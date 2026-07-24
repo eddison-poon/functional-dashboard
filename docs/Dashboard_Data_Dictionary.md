@@ -34,8 +34,6 @@ Version: 1.0
 | `Test Data` | No | Input values, data rules, or references |
 | `Test Steps` | Yes | Ordered action and expected-outcome table |
 | `Overall Expected Result` | Yes | Final observable acceptance outcome |
-| `Automation Notes` | Conditional | Recommended when automation exists |
-| `Remarks` | No | Additional information not represented elsewhere |
 
 ## Generated registry fields
 
