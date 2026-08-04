@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 
-from dashboard_engine.discovery import AssetKind, ReviewState
-from dashboard_engine.indexing import (
+from python.dashboard_engine.discovery import AssetKind, ReviewState
+from python.dashboard_engine.indexing import (
     IndexedScenario,
     IndexedTestDefinition,
     RepositoryIndex,
