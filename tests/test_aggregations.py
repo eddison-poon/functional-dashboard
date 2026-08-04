@@ -1,4 +1,4 @@
-from reporting.aggregations import *
+from python.reporting.aggregations import *
 
 class Item:
     def __init__(self,s,e):
