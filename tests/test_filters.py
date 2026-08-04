@@ -1,4 +1,4 @@
-from reporting.filters import *
+from python.reporting.filters import *
 
 class Dummy:
     def __init__(self):
