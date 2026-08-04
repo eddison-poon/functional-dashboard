@@ -1,4 +1,4 @@
-from reporting.coverage import *
+from python.reporting.coverage import *
 
 def test_percentage():
     r=calculate_coverage(8,10)
