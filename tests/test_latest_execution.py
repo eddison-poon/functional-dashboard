@@ -1,4 +1,4 @@
-from reporting.latest_execution import latest_execution, latest_by_test_definition
+from python.reporting.latest_execution import latest_execution, latest_by_test_definition
 from datetime import datetime
 
 class E:
