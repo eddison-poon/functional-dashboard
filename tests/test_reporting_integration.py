@@ -1,10 +1,10 @@
 """
 Integration tests for reporting package.
 """
-from reporting import QueryEngine
-from reporting.filters import filter_environment
-from reporting.aggregations import count_by
-from reporting.coverage import execution_coverage
+from python.reporting import QueryEngine
+from python.reporting.filters import filter_environment
+from python.reporting.aggregations import count_by
+from python.reporting.coverage import execution_coverage
 
 class Execution:
     def __init__(self, environment, status):
