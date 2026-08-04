@@ -5,9 +5,9 @@ from __future__ import annotations
 import unittest
 from pathlib import Path
 
-from dashboard_engine.aggregation import RepositoryAggregator
-from dashboard_engine.discovery import AssetKind, DiscoveredAsset, ReviewState
-from dashboard_engine.indexing import (
+from python.dashboard_engine.aggregation import RepositoryAggregator
+from python.dashboard_engine.discovery import AssetKind, DiscoveredAsset, ReviewState
+from python.dashboard_engine.indexing import (
     IndexedScenario,
     IndexedTestDefinition,
     RepositoryIndex,
