@@ -1,4 +1,4 @@
-from reporting import QueryEngine
+from python.reporting import QueryEngine
 
 
 class DummyRepository:
