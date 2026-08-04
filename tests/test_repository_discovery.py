@@ -146,6 +146,20 @@ class RepositoryDiscoveryTests(unittest.TestCase):
         self.assertEqual(1, report.count_by_state()["pending_review"])
         self.assertEqual(1, report.count_by_state()["reviewed"])
 
+    def test_ignores_template_directory_assets(self) -> None:
+        folder = self.test_cases / "templates"
+        folder.mkdir(parents=True)
+        (folder / "business_scenario_template.md").write_text(
+            "| Scenario ID | <CAPABILITY-MODULE-NNN> |",
+            encoding="utf-8",
+        )
+
+        report = RepositoryDiscovery(self.root, strict_unknown_state=True).discover()
+
+        self.assertEqual(0, len(report.assets))
+        self.assertEqual(1, report.ignored_files)
+        self.assertTrue(report.is_clean)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -29,6 +29,7 @@ _IGNORED_DIRECTORIES = {
     ".pytest_cache",
     ".mypy_cache",
     "node_modules",
+    "templates",
     "venv",
     ".venv",
 }
